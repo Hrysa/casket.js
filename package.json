@@ -1,0 +1,24 @@
+{
+  "name": "casket.js",
+  "version": "0.0.1",
+  "description": "a lightweight key-value store written in js",
+  "main": "dist/index.js",
+  "license": "BSD-3-Clause",
+  "repository": "https://github.com/Hrysa/casket.js",
+  "author": "Hrysa",
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "@types/node": "^13.13.1",
+    "eslint": "^6.8.0",
+    "jest": "^25.4.0",
+    "ts-jest": "^25.4.0",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "rm -rf dist && tsc"
+  },
+  "dependencies": {}
+}
