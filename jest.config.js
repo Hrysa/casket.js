@@ -1,5 +1,10 @@
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
-  testRegex: '/test/*',
+  projects: [
+    {
+      preset: 'ts-jest',
+      displayName: 'jsdom',
+      testEnvironment: 'jsdom',
+      testRegex: '/test/*',
+    },
+  ],
 };

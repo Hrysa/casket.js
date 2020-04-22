@@ -47,6 +47,9 @@ casket.get('k', 'k2'); // result: ['v', 'v2']
 // delete a key
 casket.del('k');
 
+// delete multiple keys
+casket.del('k', 'k1');
+
 // get casket size
 casket.size();
 

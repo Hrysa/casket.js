@@ -1,63 +1,79 @@
 // eslint-disable-next-line
 import { Driver } from './driver';
-import Node from './driver/node';
-import Browser from './driver/browser';
-import { hash, fromHash } from './utils';
+import * as Browser from './driver/browser';
 
-interface CasketOptions {}
+import { hash, now } from './utils';
 
-const defaultCasketOptions = {};
+import { Meta } from './meta';
 
-class Casket {
-  id: number;
-  driver: Driver;
+export class Casket {
+  private id: number;
 
-  opt: CasketOptions;
+  private drv: Driver;
 
-  constructor(id: number = 0, opt: CasketOptions = {}) {
+  private meta: Meta;
+
+  constructor(id: number = 0) {
     this.id = id;
-    this.opt = { ...defaultCasketOptions, ...opt };
-    this.driver = typeof window === 'object' ? new Browser(id) : new Node(id);
-    this.driver.setup();
+    this.drv = Browser;
+    this.meta = new Meta(this.id, this.drv);
   }
 
   set(key: string, value: any, expires: number = 0) {
-    this.driver.set(hash(this.id, key), value, expires);
+    this.drv.set(hash(this.id, key), value);
+    this.exp(key, expires);
   }
 
   get(key: string | { [K: string]: string }, ...args: string[]) {
     if (typeof key === 'string') {
       if (args && args.length) {
-        return [key, ...args].map((k) => this.driver.get(hash(this.id, k)));
+        return [key, ...args].map((k) => this.$get(k));
       }
-      return this.driver.get(hash(this.id, key));
+      return this.$get(key);
     }
 
     const object: { [K in typeof key & string]: any } = {} as any;
     Object.keys(key).forEach((k) => {
-      (object as any)[k] = this.driver.get(hash(this.id, key[k]));
+      (object as any)[k] = this.$get(key[k]);
     });
     return object;
   }
 
-  del(key: string) {
-    return this.driver.delete(hash(this.id, key));
+  private $get(key: string) {
+    if (this.meta.isValid(key)) return this.drv.get(hash(this.id, key));
+
+    if (this.meta.isExists(key)) {
+      this.del(key);
+    }
+
+    return null;
   }
 
-  exp(key: string, expires: number) {
-    return this.driver.expires(hash(this.id, key), expires);
+  del(...keys: string[]) {
+    keys.map(this.$del.bind(this));
+  }
+
+  private $del(key: string) {
+    this.meta.remove(key);
+    this.drv.remove(key);
+  }
+
+  exp(key: string, offset: number) {
+    const expires = offset === 0 ? 0 : offset + now();
+    this.meta.update(key, { expires });
   }
 
   size() {
-    return this.driver.size();
+    return this.keys().length;
   }
 
   keys() {
-    return this.driver.keys().map((hash) => fromHash(this.id, hash));
+    return this.meta.keys();
   }
 
   empty() {
-    return this.driver.empty();
+    this.del(...this.keys());
+    this.meta.empty();
   }
 }
 

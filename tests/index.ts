@@ -2,36 +2,43 @@ import Casket from '../src';
 
 describe('casket test', () => {
   it('init', () => {
-    localStorage.clear();
-    expect(localStorage.length).toEqual(0);
+    if (typeof localStorage === 'object') {
+      localStorage.clear();
+      expect(localStorage.length).toEqual(0);
+    }
   });
 
   const k = 'K',
     v = 'V',
     k2 = 'K2',
-    v2 = 'V2';
+    v2 = 'V2',
+    casket = new Casket();
 
   it('create instance', () => {
-    const casket = new Casket();
     expect(casket instanceof Casket);
   });
 
-  it('set with 2s expires', () => {
-    const casket = new Casket();
-    expect(casket.set(k, v, 1)).toEqual(void 0);
+  it('set get', () => {
+    expect(casket.set(k, v)).toEqual(void 0);
     expect(casket.get(k)).toEqual(v);
   });
 
-  it('get after 1s', () => {
-    const casket = new Casket();
+  it('set with 2s expires', () => {
+    expect(casket.set(k, v, 2)).toEqual(void 0);
+    expect(casket.get(k)).toEqual(v);
+  });
+
+  it('get after 1s', (done) => {
     setTimeout(() => {
       expect(casket.get(k)).toEqual(v);
+      done();
     }, 1000);
   });
 
-  it('get after 2.5s', () => {
+  it('get after 2.5s', (done) => {
     setTimeout(() => {
-      expect(new Casket().get('a')).toEqual(null);
+      expect(casket.get(k)).toEqual(null);
+      done();
     }, 2500);
   });
 
@@ -40,6 +47,11 @@ describe('casket test', () => {
     casket.set(k, v);
     casket.del(k);
     expect(casket.get(k)).toEqual(null);
+
+    casket.set(k, v);
+    casket.set(k2, v2);
+    casket.del(k, k2);
+    expect(casket.get(k, k2)).toEqual([null, null]);
   });
 
   it('set expires time after create', () => {
@@ -53,19 +65,36 @@ describe('casket test', () => {
   });
 
   it('use prefix', () => {
-    const casket = new Casket(1);
-    casket.set(k2, v2);
+    const casket = new Casket(),
+      casket2 = new Casket(1);
     casket.set(k, v);
-    expect(casket.get(k2)).toEqual(v2);
+    casket2.set(k, v2);
 
-    expect(new Casket().get(k)).toEqual(v);
+    expect(casket.get(k)).toEqual(v);
+    expect(casket2.get(k)).toEqual(v2);
 
-    expect(casket.keys()).toEqual([k2, k]);
+    casket.empty();
   });
 
   it('complicate get', () => {
     const casket = new Casket(1);
+    casket.set(k, v);
+    casket.set(k2, v2);
+
     expect(casket.get({ k2 })).toEqual({ k2: v2 });
     expect(casket.get(k2, k)).toEqual([v2, v]);
+  });
+
+  it('casket size', () => {
+    expect(new Casket(1).size()).toEqual(2);
+  });
+
+  it('truncate casket', () => {
+    const casket = new Casket(1);
+    casket.set(k, v);
+    casket.set(k2, v2);
+
+    casket.empty();
+    expect(casket.size()).toEqual(0);
   });
 });
