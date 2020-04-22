@@ -11,5 +11,4 @@ install:
 scripts:
   - npm test
   - npm build
-after_success:
   - codecov -f .nyc_output/*.json
