@@ -9,7 +9,7 @@ install:
   - npm install
   - npm install codecov -g
 scripts:
-  npm test
-  npm build
+  - npm test
+  - npm build
 after_success:
-  - codecov
+  - codecov -f .nyc_output/*.json
