@@ -60,6 +60,7 @@ export abstract class Driver {
     this.syncMeta();
   }
 
+  /** return all keys */
   protected emptyMeta() {
     const keys = Object.keys(this.meta.expires);
     this.meta.expires = {};

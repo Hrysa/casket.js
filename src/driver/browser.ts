@@ -50,8 +50,7 @@ export default class Browser extends Driver {
   }
 
   empty() {
-    const keys = this.emptyMeta();
-    keys.map(remove);
+    this.emptyMeta().map(remove);
   }
 
   syncMeta() {
@@ -64,14 +63,5 @@ export default class Browser extends Driver {
 
     // only delete expires keys exists in meta data.
     res.deletedKeys.forEach(remove);
-  }
-
-  getAllKeysFromStorage() {
-    const keys = [];
-    let length = localStorage.length;
-    while (length--) {
-      keys.push(localStorage.key(length) as string);
-    }
-    return keys.reverse();
   }
 }
