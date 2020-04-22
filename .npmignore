@@ -1,6 +1,8 @@
 src
-test
+tests
 node_modules
 jest.config.js
 .gitignore
 .eslintrc.yml
+.nyc_output
+coverage

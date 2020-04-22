@@ -11,4 +11,4 @@ install:
 scripts:
   - npm test
   - npm build
-  - codecov -f .nyc_output/*.json
+  - codecov -f coverage/*.json

@@ -18,7 +18,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "test": "nyc jest",
+    "test": "jest --coverage",
     "build": "rm -rf dist && tsc"
   },
   "dependencies": {}
