@@ -45,7 +45,6 @@ describe('casket test', () => {
   it('set expires time after create', () => {
     const casket = new Casket();
     casket.set(k, v);
-
     casket.exp(k, 1);
 
     setTimeout(() => {
