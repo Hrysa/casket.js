@@ -3,12 +3,12 @@ import { Driver } from './driver';
 import { now, hash } from './utils';
 
 export class Meta {
-  casketId: number;
+  casketId: string | number;
   drv: Driver;
 
   expires: { [K: string]: number } = {};
 
-  constructor(casketId: number, drv: Driver) {
+  constructor(casketId: string | number, drv: Driver) {
     this.casketId = casketId;
     this.drv = drv;
 

@@ -7,13 +7,13 @@ import { hash, now } from './utils';
 import { Meta } from './meta';
 
 export class Casket {
-  private id: number;
+  private id: string | number;
 
   private drv: Driver;
 
   private meta: Meta;
 
-  constructor(id: number = 0) {
+  constructor(id: string | number = 0) {
     this.id = id;
     this.drv = Browser;
     this.meta = new Meta(this.id, this.drv);

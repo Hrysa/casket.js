@@ -64,16 +64,20 @@ describe('casket test', () => {
     }, 1500);
   });
 
-  it('use prefix', () => {
+  it('use scope name', () => {
     const casket = new Casket(),
-      casket2 = new Casket(1);
+      casket2 = new Casket(1),
+      casket3 = new Casket('M J');
+
     casket.set(k, v);
     casket2.set(k, v2);
 
     expect(casket.get(k)).toEqual(v);
     expect(casket2.get(k)).toEqual(v2);
-
     casket.empty();
+
+    casket3.set(k, v);
+    expect(casket3.get(k)).toEqual(v);
   });
 
   it('complicate get', () => {

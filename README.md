@@ -2,7 +2,7 @@
 
 [![npm version](https://badgen.net/npm/v/casket.js)](https://www.npmjs.com/package/casket.js) [![travis build status](https://api.travis-ci.com/Hrysa/casket.js.svg?branch=master)](https://travis-ci.com/github/Hrysa/casket.js) [![codecov](https://codecov.io/gh/Hrysa/casket.js/branch/master/graph/badge.svg)](https://codecov.io/gh/Hrysa/casket.js)
 
-a lightweight key-value store written in js
+a lightweight key-value store for browser
 
 ## installation
 
@@ -63,4 +63,5 @@ casket.empty();
 new Casket(); // default: 0
 new Casket(1);
 new Casket(2);
+new Casket('other casket');
 ```
