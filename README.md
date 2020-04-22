@@ -1,6 +1,6 @@
 # casket.js
 
-[![npm version](https://badgen.net/npm/v/casket.js)](https://www.npmjs.com/package/casket.js) [![travis build status](https://api.travis-ci.com/Hrysa/casket.js.svg?branch=master)](https://api.travis-ci.com/Hrysa/casket.js.svg?branch=master) [![codecov](https://codecov.io/gh/Hrysa/casket.js/branch/master/graph/badge.svg)](https://codecov.io/gh/Hrysa/casket.js)
+[![npm version](https://badgen.net/npm/v/casket.js)](https://www.npmjs.com/package/casket.js) [![travis build status](https://api.travis-ci.com/Hrysa/casket.js.svg?branch=master)](https://travis-ci.com/github/Hrysa/casket.js) [![codecov](https://codecov.io/gh/Hrysa/casket.js/branch/master/graph/badge.svg)](https://codecov.io/gh/Hrysa/casket.js)
 
 a lightweight key-value store written in js
 
