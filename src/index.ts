@@ -17,10 +17,7 @@ class Casket {
   constructor(id: number = 0, opt: CasketOptions = {}) {
     this.id = id;
     this.opt = { ...defaultCasketOptions, ...opt };
-    this.driver =
-      (globalThis as any).__proto__.constructor.name === 'Window'
-        ? new Browser(id)
-        : new Node(id);
+    this.driver = typeof window === 'object' ? new Browser(id) : new Node(id);
     this.driver.setup();
   }
 
