@@ -5,4 +5,5 @@ jest.config.js
 .gitignore
 .eslintrc.yml
 .nyc_output
+tsconfig.json
 coverage

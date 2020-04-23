@@ -59,7 +59,7 @@ casket.keys();
 // truncate casket
 casket.empty();
 
-// create a casket with scope
+// create a casket with scope name
 new Casket(); // default: 0
 new Casket(1);
 new Casket(2);
