@@ -1,6 +1,6 @@
 {
   "name": "casket.js",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "a lightweight key-value store written in js",
   "main": "dist/index.js",
   "license": "BSD-3-Clause",
